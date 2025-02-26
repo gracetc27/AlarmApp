@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  MainAlarmView.swift
 //  AlarmApp
 //
 //  Created by Grace couch on 25/02/2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct MainAlarmView: View {
     var body: some View {
         VStack {
             Image(systemName: "globe")
@@ -20,5 +20,5 @@ struct ContentView: View {
 }
 
 #Preview {
-    ContentView()
+    MainAlarmView()
 }
