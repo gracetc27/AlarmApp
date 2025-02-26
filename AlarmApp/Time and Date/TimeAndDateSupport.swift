@@ -8,8 +8,8 @@
 import Foundation
 
 func dateToPercent(date: Date) -> CGFloat {
-    let result = getTimeComponents(date: date)
-    return CGFloat(result.hour) / 24 + CGFloat(result.minute) / (24 * 60)
+    let components = getTimeComponents(date: date)
+    return CGFloat(components.hour) / 24 + CGFloat(components.minute) / (24 * 60)
 
 }
 
@@ -32,3 +32,17 @@ func addTimeToDate(date: Date, hours: Int, minutes: Int) -> Date {
         TimeInterval(minutes * 60 + hours * 3600)
     )
 }
+
+func dateToTimeModel(date: Date) -> Time {
+    let components = getTimeComponents(date: date)
+    return Time(hour: components.hour, minute: components.minute)
+}
+
+extension Date {
+    static func -(lhs: Date, rhs: Date) -> TimeInterval {
+        lhs.timeIntervalSinceReferenceDate - rhs.timeIntervalSinceReferenceDate
+
+    }
+}
+
+
