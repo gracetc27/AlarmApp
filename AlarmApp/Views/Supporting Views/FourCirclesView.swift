@@ -8,8 +8,6 @@
 import SwiftUI
 
 struct FourCirclesView: View {
-    let screenWidth = UIScreen.main.bounds.width
-    let screenHeight = UIScreen.main.bounds.height
     var color1 = darkYellow
     var color2 = lightYellow
     @State private var offsetX: [CGFloat] = [0,0,0,0]
