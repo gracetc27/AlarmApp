@@ -19,10 +19,13 @@ struct EnableNotifView: View {
                     .multilineTextAlignment(.center)
                     .padding()
                 Spacer()
-
-                CustomButtonView(text: "enable") {
-
+                Button {
+                    
+                } label: {
+                    CustomButtonView(text: "enable")
                 }
+
+                CustomButtonView(text: "enable")
                 .font(.title2.bold())
                 .padding()
             }

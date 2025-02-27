@@ -34,7 +34,7 @@ struct SplashScreenView: View {
                         }
                     }
                     Spacer()
-                    Image("clock")
+                    Image(clock)
                         .resizable()
                         .scaledToFit()
                     FourCirclesView()
