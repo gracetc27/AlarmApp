@@ -37,6 +37,7 @@ struct SplashScreenView: View {
                     Image(clock)
                         .resizable()
                         .scaledToFit()
+                    
                     FourCirclesView()
 
                     Button("Lets get started...", systemImage: "alarm.fill") {

@@ -38,7 +38,7 @@ struct Alarm: Identifiable {
               sounds: .lagrima,
               startDate: .now,
               endDate: .distantFuture,
-              activitySFSymbol: "activity",
+              activitySFSymbol: "dumbbell.fill",
               colorIndex: 0)
     }
     static func DummyAlarmData() -> [Alarm] {

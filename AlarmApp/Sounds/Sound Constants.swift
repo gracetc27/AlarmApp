@@ -8,7 +8,7 @@
 import Foundation
 
 enum SoundConstants: String, CaseIterable {
-    case wake_up = "Sound Wake up"
+    case wake_up = "Wake up"
     case lagrima = "Lagrima"
 
     static func formatSoundName() -> String {
