@@ -24,7 +24,7 @@ struct ToBedWakeUpView: View {
                             .font(.largeTitle)
                         VStack(alignment: .leading) {
                             GrayTextView(text: "start")
-                            Text("Time Picker")
+                            AlarmTimePicker(time: $alarmModel.startDate, scale: 1.25)
                         }
                     }
                     GridRow {
@@ -50,7 +50,7 @@ struct ToBedWakeUpView: View {
                         TimeOfDayIcon(date: alarmModel.endDate)
                             .font(.largeTitle)
                         VStack(alignment: .leading) {
-                            Text("Time Picker")
+                            AlarmTimePicker(time: $alarmModel.endDate, scale: 1.25)
                             GrayTextView(text: "end")
                         }
                     }
