@@ -37,7 +37,8 @@ struct ToBedWakeUpView: View {
                     GridRow {
                         Image(systemName: alarmModel.activitySFSymbol)
                             .foregroundStyle(alarmModel.activityColor)
-                        Text("Select activity view")
+                        SelectActivityView(currentColorIndex: $alarmModel.colorIndex, currentActivity: $alarmModel.activitySFSymbol)
+                            .padding(.horizontal)
                     }
                     GridRow {
                         HStack {
@@ -81,7 +82,7 @@ struct ToBedWakeUpView: View {
                 .frame(maxWidth: .infinity)
             }
         }
-        .padding(.vertical)
+        .padding()
         .background(cardBackgroundColor)
         .cornerRadius(20)
     }
