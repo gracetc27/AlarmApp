@@ -13,6 +13,7 @@ struct Alarm: Identifiable {
     let body: String
     let repeats: Bool
 
+    var alarmEnabled: Bool
     var sounds: SoundConstants
     var startDate: Date
     var endDate: Date
@@ -35,6 +36,7 @@ struct Alarm: Identifiable {
         Alarm(title: "Climbing Session",
               body: "Time to climb!",
               repeats: false,
+              alarmEnabled: true,
               sounds: .lagrima,
               startDate: .now,
               endDate: .distantFuture,
@@ -45,7 +47,8 @@ struct Alarm: Identifiable {
         [
             Alarm(title: "Climbing Session",
                body: "Time to climb!",
-               repeats: false,
+                  repeats: false,
+                  alarmEnabled: true,
                sounds: .lagrima,
                startDate: .now,
                endDate: .distantFuture,
@@ -54,6 +57,7 @@ struct Alarm: Identifiable {
             Alarm(title: "Coding",
                   body: "Time to programme!",
                   repeats: false,
+                  alarmEnabled: false,
                   sounds: .lagrima,
                   startDate: .now,
                   endDate: .distantFuture,
@@ -62,6 +66,7 @@ struct Alarm: Identifiable {
             Alarm(title: "Work",
                   body: "Time to serve!",
                   repeats: false,
+                  alarmEnabled: true,
                   sounds: .lagrima,
                   startDate: .now,
                   endDate: .distantFuture,

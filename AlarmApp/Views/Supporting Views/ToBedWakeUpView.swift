@@ -14,7 +14,8 @@ struct ToBedWakeUpView: View {
     var body: some View {
         VStack {
             CancelSaveButtonView(currentAlarmIndex: currentAlarmIndex, alarmModel: $alarmModel)
-            Text("toggle alarm")
+            AlarmToggleView(isOn: $alarmModel.alarmEnabled)
+                .padding()
             Divider()
             HStack {
                 Grid {
