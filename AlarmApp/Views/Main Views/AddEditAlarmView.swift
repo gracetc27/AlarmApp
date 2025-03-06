@@ -32,7 +32,7 @@ struct AddEditAlarmView: View {
         }
         .onAppear {
             Task {
-                try? await Task.sleep(for: .seconds(2.0))
+                try? await Task.sleep(for: .seconds(3.0))
                 withAnimation(.easeOut(duration: 2.0)) {
                     showYouDidItView = false
                 }
