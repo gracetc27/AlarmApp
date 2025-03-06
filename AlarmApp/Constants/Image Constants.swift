@@ -8,3 +8,4 @@ import Foundation
 
 let clock = "clock"
 let samples = "AppImageSamples"
+let youDidIt = "undraw_confirmed_f581"
