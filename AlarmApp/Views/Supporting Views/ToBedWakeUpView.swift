@@ -13,7 +13,7 @@ struct ToBedWakeUpView: View {
 
     var body: some View {
         VStack {
-            Text("cancel and save buttons")
+            CancelSaveButtonView(currentAlarmIndex: currentAlarmIndex, alarmModel: $alarmModel)
             Text("toggle alarm")
             Divider()
             HStack {
