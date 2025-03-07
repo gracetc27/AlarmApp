@@ -39,7 +39,7 @@ struct Alarm: Identifiable, Hashable {
               alarmEnabled: true,
               sounds: .lagrima,
               startDate: .now,
-              endDate: .distantFuture,
+              endDate: addTimeToDate(date: .now, hours: 12, minutes: 0),
               activitySFSymbol: "dumbbell.fill",
               colorIndex: 0)
     }
