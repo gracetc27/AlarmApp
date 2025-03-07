@@ -10,7 +10,7 @@ import SwiftUI
 struct MainAlarmView: View {
     var body: some View {
         TabView {
-            AlarmListView()
+            AlarmListView(alarmModels: Alarm.DummyAlarmData())
                 .tabItem {
                     Image(systemName: "alarm.fill")
                 }
