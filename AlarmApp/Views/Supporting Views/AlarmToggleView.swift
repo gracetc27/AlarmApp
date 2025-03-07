@@ -12,7 +12,6 @@ struct AlarmToggleView: View {
 
     var body: some View {
         HStack {
-            GrayTextView(text: "alarm")
             Spacer()
             Toggle(LocalizedStringKey(isOn ? "on" : "off"), isOn: $isOn)
         }

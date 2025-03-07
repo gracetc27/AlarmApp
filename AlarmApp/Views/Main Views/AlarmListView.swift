@@ -17,8 +17,10 @@ struct AlarmListView: View {
         NavigationStack {
             List {
                 ForEach(modelsAndIndicies, id: \.model.id) { (model, index) in
-                    NavigationLink("\(index)") {
+                    NavigationLink {
                         AddEditAlarmView(alarmModel: .DefaultAlarm(), currentAlarmIndex: index)
+                    } label: {
+                        ListItemView(model: model, index: index)
                     }
                 }
             }
