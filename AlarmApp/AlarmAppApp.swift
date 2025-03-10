@@ -9,9 +9,11 @@ import SwiftUI
 
 @main
 struct AlarmAppApp: App {
+    @State private var localNotificationsManager = LocalNotificationsManager()
     var body: some Scene {
         WindowGroup {
-            AboutView()
+            SplashScreenView()
         }
+        .environment(localNotificationsManager)
     }
 }
