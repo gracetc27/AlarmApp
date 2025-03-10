@@ -56,27 +56,18 @@ struct ToBedWakeUpView: View {
                         }
                     }
                     GridRow {
-                        Text("")
-                        HStack {
-                            Text(LocalizedStringKey("Sound"))
-                                .font(.headline)
-                            Text(LocalizedStringKey(alarmModel.sounds.rawValue))
-                                .font(.caption)
-                                .fontWeight(.thin)
-                        }
-                        .padding(7)
-                        .overlay(
-                            Capsule()
-                                .stroke()
-                        )
-                        .contextMenu {
-                            ForEach(SoundConstants.allCases, id: \.self) { sound in
-                                Button(sound.rawValue) {
-                                    alarmModel.sounds = sound
+                        GrayTextView(text: "Sound")
+                        VStack {
+                            Picker("Sound", selection: $alarmModel.sounds) {
+                                ForEach(SoundConstants.allCases, id: \.self) { sound in
+                                    Button(sound.rawValue) {
+                                        alarmModel.sounds = sound
+                                    }
                                 }
                             }
-                            .padding(.vertical)
+                            .pickerStyle(.segmented)
                         }
+                        .padding(.vertical)
                     }
                 }
                 .frame(maxWidth: .infinity)
