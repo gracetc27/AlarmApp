@@ -23,6 +23,8 @@ struct AddEditCircularAlarmView: View {
             Spacer()
             CircularTimeView(alarmModel: alarmModel, currentAlarmIndex: currentAlarmIndex, size: screenWidth / 2)
             Spacer()
+            SelectActivityView(currentColorIndex: $alarmModel.colorIndex, currentActivity: $alarmModel.activitySFSymbol)
+                .padding()
         }
     }
 }

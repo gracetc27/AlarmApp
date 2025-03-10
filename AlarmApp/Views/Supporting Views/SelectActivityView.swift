@@ -47,7 +47,7 @@ struct SelectActivityView: View {
         .padding(4)
         .overlay {
             RoundedRectangle(cornerRadius: 15)
-                .stroke(.gray, lineWidth: 2)
+                .stroke(nickel, lineWidth: 2)
 
         }
     }
