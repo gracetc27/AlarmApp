@@ -1,5 +1,5 @@
 //
-//  LocalNotificationsManager.swift
+//  LocalNotificationManager.swift
 //  AlarmApp
 //
 //  Created by Grace couch on 10/03/2025.
@@ -9,12 +9,13 @@ import NotificationCenter
 
 @MainActor
 @Observable
-class LocalNotificationsManager: NSObject, UNUserNotificationCenterDelegate {
+class LocalNotificationManager: NSObject, UNUserNotificationCenterDelegate {
     let notificationCenter = UNUserNotificationCenter.current()
     var isAuthorized = false
 
     func requestAuthorization() async throws {
         try await notificationCenter.requestAuthorization(options: [.sound, .badge, .alert])
+        await getCurrentSettings()
     }
 
     func getCurrentSettings() async {

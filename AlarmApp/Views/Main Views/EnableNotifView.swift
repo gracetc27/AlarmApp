@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EnableNotifView: View {
+    @Environment(LocalNotificationManager.self) var localNotificationManager
     var body: some View {
         ZStack {
             FourCirclesView()
@@ -20,13 +21,12 @@ struct EnableNotifView: View {
                     .padding()
                 Spacer()
                 Button {
-                    
+                    Task {
+                        await localNotificationManager.openSettings()
+                    }
                 } label: {
                     CustomButtonView(text: "enable")
                 }
-
-                CustomButtonView(text: "enable")
-                .font(.title2.bold())
                 .padding()
             }
         }
@@ -35,4 +35,5 @@ struct EnableNotifView: View {
 
 #Preview {
     EnableNotifView()
+        .environment(LocalNotificationManager())
 }
