@@ -18,7 +18,7 @@ struct AlarmListView: View {
             List {
                 ForEach(modelsAndIndicies, id: \.model.id) { (model, index) in
                     NavigationLink {
-                        AddEditAlarmView(alarmModel: .DefaultAlarm(), currentAlarmIndex: index)
+                        MainAddEditView(currentAlarmIndex: index, alarmModel: model)
                     } label: {
                         ListItemView(model: model, index: index)
                     }
@@ -28,7 +28,7 @@ struct AlarmListView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink("Add") {
-                        AddEditAlarmView(alarmModel: .DefaultAlarm(), currentAlarmIndex: nil)
+                        MainAddEditView(currentAlarmIndex: nil, alarmModel: .DefaultAlarm())
                     }
                 }
                 ToolbarItem(placement: .topBarLeading) {
