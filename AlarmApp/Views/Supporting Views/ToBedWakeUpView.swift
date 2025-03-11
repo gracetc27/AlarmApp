@@ -58,15 +58,7 @@ struct ToBedWakeUpView: View {
                     GridRow {
                         GrayTextView(text: "Sound")
                         VStack {
-                            Picker("Sound", selection: $alarmModel.sounds) {
-                                ForEach(SoundConstants.allCases, id: \.self) { sound in
-                                    Button(sound.rawValue) {
-                                        alarmModel.sounds = sound
-                                    }
-                                }
-                            }
-                            .pickerStyle(.segmented)
-                        }
+                            SoundPicker(alarmSound: $alarmModel.sounds)                        }
                         .padding(.vertical)
                     }
                 }

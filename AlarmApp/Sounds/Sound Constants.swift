@@ -61,8 +61,9 @@ extension String {
         let periodIndex = result.firstIndex(of: ".")
 
         if let periodIndex = periodIndex {
-            return result.removeSubrange(periodIndex...)
+           result.removeSubrange(periodIndex...)
         }
+        return result
     }
 }
 

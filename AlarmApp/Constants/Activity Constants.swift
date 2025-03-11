@@ -27,6 +27,6 @@ let activities = [
     "folder.circle.fill",
     "trash.fill",
     "alarm.fill",
-    "balloom.2",
+    "balloon.2",
     "laptopcomputer"
 ]
