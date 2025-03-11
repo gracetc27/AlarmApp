@@ -33,6 +33,7 @@ struct MainAlarmView: View {
             if newValue == .active {
                 Task {
                     await localNotificationManager.getCurrentSettings()
+                    await localNotificationManager.getPendingAlarms()
                 }
             }
         }

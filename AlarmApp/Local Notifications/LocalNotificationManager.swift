@@ -10,8 +10,16 @@ import NotificationCenter
 @MainActor
 @Observable
 class LocalNotificationManager: NSObject, UNUserNotificationCenterDelegate {
-    let notificationCenter = UNUserNotificationCenter.current()
     var isAuthorized = false
+    var pendingAlarms: [UNNotificationRequest] = []
+    var alarmViewModels: [Alarm] = [] {
+        didSet {
+            
+        }
+    }
+
+    let notificationCenter = UNUserNotificationCenter.current()
+    let itemKey = "Alarm List"
 
     func requestAuthorization() async throws {
         try await notificationCenter.requestAuthorization(options: [.sound, .badge, .alert])
@@ -29,5 +37,24 @@ class LocalNotificationManager: NSObject, UNUserNotificationCenterDelegate {
                 await UIApplication.shared.open(url)
             }
         }
+    }
+
+    func getPendingAlarms() async {
+        pendingAlarms = await notificationCenter.pendingNotificationRequests()
+    }
+
+    func saveAlarms() {
+        if let data = try? JSONEncoder().encode(alarmViewModels) {
+            UserDefaults.standard.set(data, forKey: itemKey)
+        }
+    }
+
+    override init() {
+        super.init()
+        guard let data = UserDefaults.standard.data(forKey: itemKey),
+              let savedItems = try? JSONDecoder().decode([Alarm].self, from: data) else {
+            return
+        }
+        self.alarmViewModels = savedItems
     }
 }
