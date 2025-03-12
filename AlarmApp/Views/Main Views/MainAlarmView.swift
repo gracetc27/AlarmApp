@@ -13,7 +13,7 @@ struct MainAlarmView: View {
     var body: some View {
         TabView {
             if localNotificationManager.isAuthorized {
-                AlarmListView(alarmModels: Alarm.DummyAlarmData())
+                AlarmListView()
                     .tabItem {
                         Image(systemName: "alarm.fill")
                     }

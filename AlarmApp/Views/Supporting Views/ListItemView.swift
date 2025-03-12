@@ -8,30 +8,36 @@
 import SwiftUI
 
 struct ListItemView: View {
-    let model: Alarm
+    @Environment(LocalNotificationManager.self) var localNotificationManager
+    let alarmModel: Alarm
     let index: Int
     var body: some View {
         HStack {
-            Image(systemName: model.activitySFSymbol)
-                .foregroundStyle(model.activityColor)
+            Image(systemName: alarmModel.activitySFSymbol)
+                .foregroundStyle(alarmModel.activityColor)
                 .font(.title)
 
-            Text("\(getTimeFromDate(date: model.endDate))")
+            Text("\(getTimeFromDate(date: alarmModel.startDate))-\(getTimeFromDate(date: alarmModel.endDate))")
                 .font(.title)
-                .fontWeight(model.alarmEnabled ? .bold : .thin)
-                .opacity(model.alarmEnabled ? 1 : 0.7)
+                .fontWeight(alarmModel.alarmEnabled ? .bold : .thin)
+                .opacity(alarmModel.alarmEnabled ? 1 : 0.7)
             Spacer()
-           // GrayTextView(text: LocalizedStringKey(model.title)) 
-            AlarmToggleView(isOn: .constant(Alarm.DummyAlarmData()[index].alarmEnabled))
-                .labelsHidden()
-
-            
-
-
+            if index < localNotificationManager.alarmViewModels.count {
+                AlarmToggleView(isOn: .constant(localNotificationManager.alarmViewModels[index].alarmEnabled))
+                    .labelsHidden()
+            }
+        }
+        .onChange(of: alarmModel.alarmEnabled) { _, alarmEnabled in
+            if alarmEnabled {
+                print("enable alarm")
+            } else {
+                print("disable alarm")
+            }
         }
     }
 }
 
 #Preview {
-    ListItemView(model: .DefaultAlarm(), index: 0)
+    ListItemView(alarmModel: .DefaultAlarm(), index: 0)
+        .environment(LocalNotificationManager())
 }
