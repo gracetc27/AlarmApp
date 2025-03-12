@@ -43,6 +43,30 @@ class LocalNotificationManager: NSObject, UNUserNotificationCenterDelegate {
         pendingAlarms = await notificationCenter.pendingNotificationRequests()
     }
 
+    func schedule(localNotification: Alarm) async {
+        let content = UNMutableNotificationContent()
+
+        content.body = NSLocalizedString(localNotification.body, comment: "")
+        content.sound = customSound(soundName: localNotification.sounds)
+        let dateComponents = localNotification.endDateComponents
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: localNotification.repeats)
+        let request = UNNotificationRequest(
+            identifier: localNotification.id,
+            content: content,
+            trigger: trigger)
+
+        try? await notificationCenter.add(request)
+
+        pendingAlarms = await notificationCenter.pendingNotificationRequests()
+    }
+
+    func customSound(soundName: SoundConstants, fileExtension: String = "") -> UNNotificationSound? {
+        let period = fileExtension.isEmpty ? "" : "."
+        let fileName = "\(soundName)\(period)\(fileExtension)"
+
+        return UNNotificationSound(named: UNNotificationSoundName(rawValue: fileName))
+    }
+
     func saveAlarms() {
         if let data = try? JSONEncoder().encode(alarmViewModels) {
             UserDefaults.standard.set(data, forKey: itemKey)

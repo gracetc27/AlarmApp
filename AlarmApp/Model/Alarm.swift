@@ -31,6 +31,9 @@ struct Alarm: Codable, Identifiable, Hashable {
     var endTime: Time {
         dateToTimeModel(date: endDate)
     }
+    var endDateComponents: DateComponents {
+        Calendar.current.dateComponents([.hour, .minute], from: self.endDate)
+    }
 
     static func DefaultAlarm() -> Alarm {
         Alarm(title: "Climbing Session",

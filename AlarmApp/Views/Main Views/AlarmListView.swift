@@ -46,6 +46,8 @@ struct AlarmListView: View {
         for index in offsets {
             // remove request
             print("remove \(localNotificationManager.alarmViewModels[index].id)")
+
+            localNotificationManager.alarmViewModels.remove(atOffsets: offsets)
         }
     }
 }
