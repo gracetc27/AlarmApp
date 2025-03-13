@@ -13,18 +13,15 @@ struct AlarmListView: View {
     @State private var isActive = false
     @State private var currentIndex: Int? = nil
 
-    var modelsAndIndicies: [(model: Alarm, index: Int)] {
-        Array(zip(localNotificationManager.alarmViewModels, localNotificationManager.alarmViewModels.indices))
-    }
     var body: some View {
         NavigationStack {
             List {
-                ForEach(modelsAndIndicies, id: \.model.id) { (model, index) in
+                ForEach(localNotificationManager.alarmViewModels.indices, id: \.self) { index in
                     Button {
                         currentIndex = index
                         isActive.toggle()
                     } label: {
-                        ListItemView(alarmModel: model, index: index)
+                        ListItemView(alarmModel: localNotificationManager.alarmViewModels[index], index: index)
                     }
                 }
                 .onDelete(perform: delete)
