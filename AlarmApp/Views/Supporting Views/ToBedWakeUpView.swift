@@ -9,7 +9,12 @@ import SwiftUI
 
 struct ToBedWakeUpView: View {
     let currentAlarmIndex: Int?
-    @Binding var alarmModel: Alarm
+    @State private var alarmModel: Alarm
+
+    init(currentAlarmIndex: Int?, alarmModel: Alarm) {
+        self.currentAlarmIndex = currentAlarmIndex
+        self._alarmModel = State(initialValue: alarmModel)
+    }
 
     var body: some View {
         VStack {
@@ -72,5 +77,5 @@ struct ToBedWakeUpView: View {
 }
 
 #Preview {
-    ToBedWakeUpView(currentAlarmIndex: nil, alarmModel: .constant(.DefaultAlarm()))
+    ToBedWakeUpView(currentAlarmIndex: nil, alarmModel: .DefaultAlarm())
 }
