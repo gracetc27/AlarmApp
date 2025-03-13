@@ -82,6 +82,15 @@ class LocalNotificationManager: NSObject, UNUserNotificationCenterDelegate {
 
     }
 
+    func safeAppend(localNotification: Alarm) {
+        if let index = alarmViewModels.firstIndex(where: { $0.id == localNotification.id }) {
+            alarmViewModels[index] = localNotification
+        } else {
+            alarmViewModels.append(localNotification)
+        }
+        alarmViewModels = alarmViewModels.sorted(by: { $0.endTime < $1.endTime})
+    }
+
     override init() {
         super.init()
         guard let data = UserDefaults.standard.data(forKey: itemKey),
