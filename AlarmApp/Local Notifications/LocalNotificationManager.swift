@@ -73,6 +73,15 @@ class LocalNotificationManager: NSObject, UNUserNotificationCenterDelegate {
         }
     }
 
+    func removeRequest(id: String) {
+        notificationCenter.removeDeliveredNotifications(withIdentifiers: [id])
+
+        if let index = pendingAlarms.firstIndex(where: { $0.identifier == id }) {
+            pendingAlarms.remove(at: index)
+        }
+
+    }
+
     override init() {
         super.init()
         guard let data = UserDefaults.standard.data(forKey: itemKey),

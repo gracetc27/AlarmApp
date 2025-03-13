@@ -29,9 +29,11 @@ struct ListItemView: View {
         }
         .onChange(of: alarmModel.alarmEnabled) { _, alarmEnabled in
             if alarmEnabled {
-                print("enable alarm")
+                Task {
+                    await localNotificationManager.schedule(localNotification: alarmModel)
+                }
             } else {
-                print("disable alarm")
+                localNotificationManager.removeRequest(id: alarmModel.id)
             }
         }
     }

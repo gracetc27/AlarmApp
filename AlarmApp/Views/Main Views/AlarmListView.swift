@@ -44,10 +44,9 @@ struct AlarmListView: View {
     }
     func delete(at offsets: IndexSet) {
         for index in offsets {
-            // remove request
-            print("remove \(localNotificationManager.alarmViewModels[index].id)")
-
             localNotificationManager.alarmViewModels.remove(atOffsets: offsets)
+            
+            localNotificationManager.removeRequest(id: localNotificationManager.alarmViewModels[index].id )
         }
     }
 }
