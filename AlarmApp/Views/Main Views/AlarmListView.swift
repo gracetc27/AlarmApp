@@ -30,6 +30,9 @@ struct AlarmListView: View {
                 .onDelete(perform: delete)
             }
             .navigationTitle(LocalizedStringKey("Alarm List"))
+            .sheet(isPresented: $isActive) {
+                AddEditAlarmView(currentAlarmIndex: currentIndex)
+            }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink("Add") {
@@ -44,8 +47,6 @@ struct AlarmListView: View {
     }
     func delete(at offsets: IndexSet) {
         for index in offsets {
-            localNotificationManager.alarmViewModels.remove(atOffsets: offsets)
-            
             localNotificationManager.removeRequest(id: localNotificationManager.alarmViewModels[index].id )
         }
     }
