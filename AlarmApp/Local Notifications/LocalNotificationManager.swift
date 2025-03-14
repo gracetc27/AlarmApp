@@ -14,7 +14,7 @@ class LocalNotificationManager: NSObject, UNUserNotificationCenterDelegate {
     var pendingAlarms: [UNNotificationRequest] = []
     var alarmViewModels: [Alarm] = [] {
         didSet {
-            
+            saveAlarms()
         }
     }
 
@@ -93,10 +93,22 @@ class LocalNotificationManager: NSObject, UNUserNotificationCenterDelegate {
 
     override init() {
         super.init()
+        notificationCenter.delegate = self
         guard let data = UserDefaults.standard.data(forKey: itemKey),
               let savedItems = try? JSONDecoder().decode([Alarm].self, from: data) else {
             return
         }
         self.alarmViewModels = savedItems
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification) async -> UNNotificationPresentationOptions {
+        pendingAlarms = await notificationCenter.pendingNotificationRequests()
+
+        let notificationId = notification.request.identifier
+        if let index = alarmViewModels.firstIndex(where:  { $0.id == notificationId }) {
+            alarmViewModels[index].alarmEnabled = false
+        }
+
+        return [.sound, .banner]
     }
 }
