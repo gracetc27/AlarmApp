@@ -21,6 +21,8 @@ struct ToBedWakeUpView: View {
             CancelSaveButtonView(currentAlarmIndex: currentAlarmIndex, alarmModel: $alarmModel)
             AlarmToggleView(isOn: $alarmModel.alarmEnabled)
                 .padding()
+            RepeatsToggleView(doesRepeat: $alarmModel.repeats)
+                .padding()
             Divider()
             HStack {
                 Grid {
@@ -78,4 +80,5 @@ struct ToBedWakeUpView: View {
 
 #Preview {
     ToBedWakeUpView(currentAlarmIndex: nil, alarmModel: .DefaultAlarm())
+        .environment(LocalNotificationManager())
 }

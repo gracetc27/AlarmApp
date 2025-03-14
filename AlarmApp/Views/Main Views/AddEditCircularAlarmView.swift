@@ -31,4 +31,5 @@ struct AddEditCircularAlarmView: View {
 
 #Preview {
     AddEditCircularAlarmView(alarmModel: .DefaultAlarm())
+        .environment(LocalNotificationManager())
 }

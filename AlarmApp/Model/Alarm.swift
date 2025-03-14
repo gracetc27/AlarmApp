@@ -9,10 +9,10 @@ import SwiftUI
 
 struct Alarm: Codable, Identifiable, Hashable {
     let id = UUID().uuidString
-    let title: String
-    let body: String
-    let repeats: Bool
-
+    
+    var title: String
+    var body: String
+    var repeats: Bool
     var alarmEnabled: Bool
     var sounds: SoundConstants
     var startDate: Date

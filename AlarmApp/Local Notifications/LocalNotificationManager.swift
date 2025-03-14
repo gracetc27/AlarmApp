@@ -74,7 +74,7 @@ class LocalNotificationManager: NSObject, UNUserNotificationCenterDelegate {
     }
 
     func removeRequest(id: String) {
-        notificationCenter.removeDeliveredNotifications(withIdentifiers: [id])
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: [id])
 
         if let index = pendingAlarms.firstIndex(where: { $0.identifier == id }) {
             pendingAlarms.remove(at: index)
@@ -106,7 +106,9 @@ class LocalNotificationManager: NSObject, UNUserNotificationCenterDelegate {
 
         let notificationId = notification.request.identifier
         if let index = alarmViewModels.firstIndex(where:  { $0.id == notificationId }) {
-            alarmViewModels[index].alarmEnabled = false
+            if alarmViewModels[index].repeats == false {
+                alarmViewModels[index].alarmEnabled = false
+            }
         }
 
         return [.sound, .banner]
