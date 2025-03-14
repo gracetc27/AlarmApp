@@ -62,7 +62,7 @@ class LocalNotificationManager: NSObject, UNUserNotificationCenterDelegate {
 
     func customSound(soundName: SoundConstants, fileExtension: String = "") -> UNNotificationSound? {
         let period = fileExtension.isEmpty ? "" : "."
-        let fileName = "\(soundName)\(period)\(fileExtension)"
+        let fileName = "\(soundName.rawValue)\(period)\(fileExtension)"
 
         return UNNotificationSound(named: UNNotificationSoundName(rawValue: fileName))
     }
