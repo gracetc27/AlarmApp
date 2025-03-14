@@ -8,6 +8,8 @@
 "alarm" = "alarm";
 "on" = "🔔";
 "off" = "🔕";
+"repeats on" = "repetisjoner slått på";
+"repeats off" = "repetisjoner slått av";
 "create" = "skape";
 "Add Alarm" = "Legg til alarm";
 "Alarm List" = "Alarmliste";

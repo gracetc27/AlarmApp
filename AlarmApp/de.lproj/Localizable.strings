@@ -8,6 +8,8 @@
 "alarm" = "Alarm";
 "on" = "🔔";
 "off" = "🔕";
+"repeats on" = "Wiederholungen eingeschaltet";
+"repeats off" = "Wiederholungen deaktivierts";
 "create" = "erstellen";
 "Add Alarm" = "Wecker hinzufügen";
 "Alarm List" = "Alarmliste";

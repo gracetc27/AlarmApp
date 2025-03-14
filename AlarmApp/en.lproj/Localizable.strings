@@ -8,6 +8,8 @@
 "alarm" = "alarm";
 "on" = "🔔";
 "off" = "🔕";
+"repeats on" = "repeats on";
+"repeats off" = "repeats off";
 "create" = "create";
 "Add Alarm" = "Add Alarm";
 "Alarm List" = "Alarm List";
