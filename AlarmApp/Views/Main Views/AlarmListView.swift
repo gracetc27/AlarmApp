@@ -27,7 +27,7 @@ struct AlarmListView: View {
                 .onDelete(perform: delete)
             }
             .navigationTitle(LocalizedStringKey("Alarm List"))
-            .sheet(isPresented: $isActive) {
+            .sheet(isPresented: $isActive) { [currentIndex] in
                 AddEditAlarmView(currentAlarmIndex: currentIndex)
             }
             .toolbar {

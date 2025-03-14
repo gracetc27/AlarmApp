@@ -28,6 +28,7 @@ struct CancelSaveButtonView: View {
                     localNotificationManager.safeAppend(localNotification: alarmModel)
                 }
                 stopSound()
+                
                 dismiss()
                 Task {
                     if alarmModel.alarmEnabled {

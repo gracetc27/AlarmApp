@@ -27,7 +27,7 @@ struct AddEditAlarmView: View {
                     ToBedWakeUpView(currentAlarmIndex: currentAlarmIndex, alarmModel: localNotificationManager.alarmViewModels[currentAlarmIndex])
                         .padding(.horizontal)
                 } else {
-                    ToBedWakeUpView(currentAlarmIndex: currentAlarmIndex, alarmModel: .DefaultAlarm())
+                    ToBedWakeUpView(currentAlarmIndex: nil, alarmModel: .DefaultAlarm())
                         .padding(.horizontal)
                 }
             }
