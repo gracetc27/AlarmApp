@@ -12,7 +12,7 @@ struct AlarmListView: View {
 
     @State private var isActive = false
     @State private var currentIndex: Int? = nil
-    @State private var alarmViewType: AlarmViewType = .standard
+    @State private var alarmViewType: AlarmViewType = .circular
 
     var body: some View {
         NavigationStack {
@@ -29,7 +29,7 @@ struct AlarmListView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink("Add") {
-                        ChooseAlarmView(alarmViewType: .standard, currentAlarmIndex: $currentIndex)
+                        ChooseAlarmView(alarmViewType: alarmViewType, currentAlarmIndex: $currentIndex)
                     }
                 }
                 ToolbarItem(placement: .topBarLeading) {

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct CircularTimeView: View {
     let currentAlarmIndex: Int?
-    @State private var alarmModel: Alarm
+    @Binding var alarmModel: Alarm
 
     let size: CGFloat
 
@@ -33,11 +33,7 @@ struct CircularTimeView: View {
         360 * startToPercent
     }
 
-    init(alarmModel: Alarm, currentAlarmIndex: Int? = nil, size: CGFloat) {
-        self.currentAlarmIndex = currentAlarmIndex
-        self._alarmModel = State(initialValue: alarmModel)
-        self.size = size
-    }
+
 
     var body: some View {
         ZStack {
@@ -51,5 +47,5 @@ struct CircularTimeView: View {
 }
 
 #Preview {
-    CircularTimeView(alarmModel: .DefaultAlarm(), size: screenWidth / 2)
+    CircularTimeView(currentAlarmIndex: nil, alarmModel: .constant(.DefaultAlarm()), size: screenWidth / 2)
 }
