@@ -18,12 +18,7 @@ struct AlarmListView: View {
         NavigationStack {
             List {
                 ForEach(localNotificationManager.alarmViewModels.indices, id: \.self) { index in
-                    Button {
-                        currentIndex = index
-                        isActive.toggle()
-                    } label: {
-                        ListItemView(alarmModel: localNotificationManager.alarmViewModels[index], index: index)
-                    }
+                    AlarmRowButtonView(index: index, currentIndex: $currentIndex, isActive: $isActive)
                 }
                 .onDelete(perform: delete)
             }

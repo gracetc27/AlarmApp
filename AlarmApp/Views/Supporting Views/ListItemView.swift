@@ -21,11 +21,7 @@ struct ListItemView: View {
                 .font(.title2)
                 .fontWeight(alarmModel.alarmEnabled ? .bold : .thin)
                 .opacity(alarmModel.alarmEnabled ? 1 : 0.7)
-            Spacer()
-            if index < localNotificationManager.alarmViewModels.count {
-                AlarmToggleView(isOn: .constant(localNotificationManager.alarmViewModels[index].alarmEnabled))
-                    .labelsHidden()
-            }
+                .fixedSize(horizontal: true, vertical: false)
         }
         .onChange(of: alarmModel.alarmEnabled) { _, alarmEnabled in
             if alarmEnabled {
