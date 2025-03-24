@@ -10,39 +10,19 @@ import SwiftUI
 struct AddEditAlarmView: View {
     let currentAlarmIndex: Int?
     @State private var alarmModel: Alarm
-    @State private var showYouDidItView = true
 
-    init(currentAlarmIndex: Int?, alarmModel: Alarm, showYouDidItView: Bool = true) {
+
+    init(currentAlarmIndex: Int?, alarmModel: Alarm) {
         self.currentAlarmIndex = currentAlarmIndex
         self._alarmModel = State(initialValue: alarmModel)
-        self.showYouDidItView = showYouDidItView
     }
 
     var body: some View {
-        ZStack {
-            backgroundColor
-                .opacity(0.7)
-                .ignoresSafeArea()
-            VStack {
-                if showYouDidItView {
-                    YouDidItView()
-                        .padding()
-                }
-
-                ToBedWakeUpView(currentAlarmIndex: currentAlarmIndex, alarmModel: alarmModel)
-                    .padding(.horizontal)
-            }
-        }
-        .onAppear {
-            Task {
-                try? await Task.sleep(for: .seconds(3.0))
-                withAnimation(.easeOut(duration: 2.0)) {
-                    showYouDidItView = false
-                }
-            }
-        }
+        ToBedWakeUpView(currentAlarmIndex: currentAlarmIndex, alarmModel: alarmModel)
+            .padding(.horizontal)
     }
 }
+
 
 #Preview {
     AddEditAlarmView(currentAlarmIndex: nil, alarmModel: .DefaultAlarm())
