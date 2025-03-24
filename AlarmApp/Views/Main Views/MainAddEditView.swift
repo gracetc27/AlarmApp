@@ -10,7 +10,6 @@ import SwiftUI
 struct MainAddEditView: View {
     let currentAlarmIndex: Int?
     @State private var alarmModel: Alarm
-
     @State private var selectedTab = "One"
 
     init(currentAlarmIndex: Int? = nil, alarmModel: Alarm) {
@@ -19,7 +18,7 @@ struct MainAddEditView: View {
     }
     var body: some View {
         TabView(selection: $selectedTab) {
-            AddEditAlarmView(currentAlarmIndex: currentAlarmIndex)
+            AddEditAlarmView(currentAlarmIndex: currentAlarmIndex, alarmModel: alarmModel)
                 .tag("One")
 
             AddEditCircularAlarmView(alarmModel: alarmModel, currentAlarmIndex: currentAlarmIndex)

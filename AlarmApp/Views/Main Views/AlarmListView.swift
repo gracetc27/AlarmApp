@@ -12,6 +12,7 @@ struct AlarmListView: View {
 
     @State private var isActive = false
     @State private var currentIndex: Int? = nil
+    @State private var alarmViewType: AlarmViewType = .standard
 
     var body: some View {
         NavigationStack {
@@ -27,13 +28,13 @@ struct AlarmListView: View {
                 .onDelete(perform: delete)
             }
             .navigationTitle(LocalizedStringKey("Alarm List"))
-            .sheet(isPresented: $isActive) { [currentIndex] in
-                AddEditAlarmView(currentAlarmIndex: currentIndex)
+            .sheet(isPresented: $isActive) {
+                ChooseAlarmView(alarmViewType: alarmViewType, currentAlarmIndex: $currentIndex)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink("Add") {
-                        MainAddEditView(currentAlarmIndex: nil, alarmModel: .DefaultAlarm())
+                        ChooseAlarmView(alarmViewType: .standard, currentAlarmIndex: $currentIndex)
                     }
                 }
                 ToolbarItem(placement: .topBarLeading) {

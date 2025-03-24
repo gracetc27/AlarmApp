@@ -9,9 +9,14 @@ import SwiftUI
 
 struct AddEditAlarmView: View {
     let currentAlarmIndex: Int?
-
+    @State private var alarmModel: Alarm
     @State private var showYouDidItView = true
-    @Environment(LocalNotificationManager.self) var localNotificationManager
+
+    init(currentAlarmIndex: Int?, alarmModel: Alarm, showYouDidItView: Bool = true) {
+        self.currentAlarmIndex = currentAlarmIndex
+        self._alarmModel = State(initialValue: alarmModel)
+        self.showYouDidItView = showYouDidItView
+    }
 
     var body: some View {
         ZStack {
@@ -23,13 +28,9 @@ struct AddEditAlarmView: View {
                     YouDidItView()
                         .padding()
                 }
-                if let currentAlarmIndex = currentAlarmIndex {
-                    ToBedWakeUpView(currentAlarmIndex: currentAlarmIndex, alarmModel: localNotificationManager.alarmViewModels[currentAlarmIndex])
-                        .padding(.horizontal)
-                } else {
-                    ToBedWakeUpView(currentAlarmIndex: nil, alarmModel: .DefaultAlarm())
-                        .padding(.horizontal)
-                }
+
+                ToBedWakeUpView(currentAlarmIndex: currentAlarmIndex, alarmModel: alarmModel)
+                    .padding(.horizontal)
             }
         }
         .onAppear {
@@ -44,6 +45,6 @@ struct AddEditAlarmView: View {
 }
 
 #Preview {
-    AddEditAlarmView(currentAlarmIndex: nil)
+    AddEditAlarmView(currentAlarmIndex: nil, alarmModel: .DefaultAlarm())
         .environment(LocalNotificationManager())
 }
