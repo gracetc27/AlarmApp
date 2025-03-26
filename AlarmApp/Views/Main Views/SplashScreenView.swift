@@ -26,8 +26,7 @@ struct SplashScreenView: View {
                     .padding()
                     .onAppear {
                         withAnimation(.easeIn(duration: 1.5)) {
-                            splashScreenVM.opacity = 1.0
-                            splashScreenVM.fontSize = 36.0
+                            splashScreenVM.animationAction()
                         }
                     }
                     Spacer()

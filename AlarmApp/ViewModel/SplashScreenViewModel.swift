@@ -12,4 +12,9 @@ class SplashScreenViewModel {
     var isActive = false
     var opacity = 0.7
     var fontSize = 12.0
+
+    func animationAction() {
+        opacity = 1.0
+        fontSize = 36.0
+    }
 }
