@@ -45,8 +45,8 @@ class LocalNotificationManager: NSObject, UNUserNotificationCenterDelegate {
 
     func schedule(localNotification: Alarm) async {
         let content = UNMutableNotificationContent()
-
-        content.body = NSLocalizedString(localNotification.body, comment: "")
+        content.title = NSLocalizedString(localNotification.title, comment: "")
+        content.body = NSLocalizedString(localNotification.description, comment: "")
         content.sound = customSound(soundName: localNotification.sounds)
         let dateComponents = localNotification.endDateComponents
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: localNotification.repeats)

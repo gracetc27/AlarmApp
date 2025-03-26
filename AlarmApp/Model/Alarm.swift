@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct Alarm: Codable, Identifiable, Hashable {
-    let id = UUID().uuidString
+    var id = UUID().uuidString
     
     var title: String
-    var body: String
+    var description: String
     var repeats: Bool
     var alarmEnabled: Bool
     var sounds: SoundConstants
@@ -37,7 +37,7 @@ struct Alarm: Codable, Identifiable, Hashable {
 
     static func DefaultAlarm() -> Alarm {
         Alarm(title: "Climbing Session",
-              body: "Time to climb!",
+              description: "Time to climb!",
               repeats: false,
               alarmEnabled: true,
               sounds: .lagrima,
@@ -49,7 +49,7 @@ struct Alarm: Codable, Identifiable, Hashable {
     static func DummyAlarmData() -> [Alarm] {
         [
             Alarm(title: "Climbing Session",
-               body: "Time to climb!",
+               description: "Time to climb!",
                   repeats: false,
                   alarmEnabled: true,
                sounds: .lagrima,
@@ -58,7 +58,7 @@ struct Alarm: Codable, Identifiable, Hashable {
                activitySFSymbol: "dumbbell.fill",
                colorIndex: 3),
             Alarm(title: "Coding",
-                  body: "Time to programme!",
+                  description: "Time to programme!",
                   repeats: false,
                   alarmEnabled: false,
                   sounds: .lagrima,
@@ -67,7 +67,7 @@ struct Alarm: Codable, Identifiable, Hashable {
                   activitySFSymbol: "laptopcomputer",
                   colorIndex: 2),
             Alarm(title: "Work",
-                  body: "Time to serve!",
+                  description: "Time to serve!",
                   repeats: false,
                   alarmEnabled: true,
                   sounds: .lagrima,
