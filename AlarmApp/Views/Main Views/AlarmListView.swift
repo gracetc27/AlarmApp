@@ -12,7 +12,7 @@ struct AlarmListView: View {
 
     @State private var isActive = false
     @State private var currentIndex: Int? = nil
-    @State private var alarmViewType: AlarmViewType = .circular
+
 
     var body: some View {
         NavigationStack {
@@ -24,12 +24,12 @@ struct AlarmListView: View {
             }
             .navigationTitle(LocalizedStringKey("Alarm List"))
             .sheet(isPresented: $isActive) {
-                ChooseAlarmView(alarmViewType: alarmViewType, currentAlarmIndex: $currentIndex)
+                ChooseAlarmView(currentAlarmIndex: $currentIndex)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink("Add") {
-                        ChooseAlarmView(alarmViewType: alarmViewType, currentAlarmIndex: $currentIndex)
+                        ChooseAlarmView(currentAlarmIndex: $currentIndex)
                     }
                 }
                 ToolbarItem(placement: .topBarLeading) {

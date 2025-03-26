@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ToBedWakeUpView: View {
+    @Environment(\.dismiss) var dismiss
+    @Environment(LocalNotificationManager.self) var localNotificationManager
     let currentAlarmIndex: Int?
     @State private var alarmModel: Alarm
 
@@ -17,64 +19,68 @@ struct ToBedWakeUpView: View {
     }
 
     var body: some View {
-        VStack {
-            CancelSaveButtonView(currentAlarmIndex: currentAlarmIndex, alarmModel: $alarmModel)
-            AlarmToggleView(isOn: $alarmModel.alarmEnabled)
-                .padding()
-            RepeatsToggleView(doesRepeat: $alarmModel.repeats)
-                .padding()
-            Divider()
-            HStack {
-                Grid {
-                    GridRow {
-                        TimeOfDayIcon(date: alarmModel.startDate)
-                            .font(.largeTitle)
-                        VStack(alignment: .leading) {
-                            GrayTextView(text: "start")
-                            AlarmTimePicker(time: $alarmModel.startDate, scale: 1.25)
+        ScrollView {
+            VStack {
+                Divider()
+                EditTitleBodyView(title: $alarmModel.title, description: $alarmModel.description)
+                Divider()
+                AlarmToggleView(isOn: $alarmModel.alarmEnabled)
+                    .padding()
+                RepeatsToggleView(doesRepeat: $alarmModel.repeats)
+                    .padding()
+                Divider()
+                HStack {
+                    Grid {
+                        GridRow {
+                            TimeOfDayIcon(date: alarmModel.startDate)
+                                .font(.largeTitle)
+                            VStack(alignment: .leading) {
+                                GrayTextView(text: "start")
+                                AlarmTimePicker(time: $alarmModel.startDate, scale: 1.25)
+                            }
                         }
-                    }
-                    GridRow {
-                        HStack {
-                            Divider()
-                                .frame(height: 30)
+                        GridRow {
+                            HStack {
+                                Divider()
+                                    .frame(height: 30)
+                            }
                         }
-                    }
-                    .padding(.vertical)
-                    GridRow {
-                        Image(systemName: alarmModel.activitySFSymbol)
-                            .foregroundStyle(alarmModel.activityColor)
-                        SelectActivityView(currentColorIndex: $alarmModel.colorIndex, currentActivity: $alarmModel.activitySFSymbol)
-                            .padding(.horizontal)
-                    }
-                    GridRow {
-                        HStack {
-                            Divider()
-                                .frame(height: 30)
-                        }
-                    }
-                    .padding(.vertical)
-                    GridRow {
-                        TimeOfDayIcon(date: alarmModel.endDate)
-                            .font(.largeTitle)
-                        VStack(alignment: .leading) {
-                            AlarmTimePicker(time: $alarmModel.endDate, scale: 1.25)
-                            GrayTextView(text: "end")
-                        }
-                    }
-                    GridRow {
-                        GrayTextView(text: "Sound")
-                        VStack {
-                            SoundPicker(alarmSound: $alarmModel.sounds)                        }
                         .padding(.vertical)
+                        GridRow {
+                            Image(systemName: alarmModel.activitySFSymbol)
+                                .foregroundStyle(alarmModel.activityColor)
+                            SelectActivityView(currentColorIndex: $alarmModel.colorIndex, currentActivity: $alarmModel.activitySFSymbol)
+                                .padding(.horizontal)
+                        }
+                        GridRow {
+                            HStack {
+                                Divider()
+                                    .frame(height: 30)
+                            }
+                        }
+                        .padding(.vertical)
+                        GridRow {
+                            TimeOfDayIcon(date: alarmModel.endDate)
+                                .font(.largeTitle)
+                            VStack(alignment: .leading) {
+                                AlarmTimePicker(time: $alarmModel.endDate, scale: 1.25)
+                                GrayTextView(text: "end")
+                            }
+                        }
+                        GridRow {
+                            GrayTextView(text: "Sound")
+                            VStack {
+                                SoundPicker(alarmSound: $alarmModel.sounds)                        }
+                            .padding(.vertical)
+                        }
                     }
+                    .frame(maxWidth: .infinity)
                 }
-                .frame(maxWidth: .infinity)
             }
+            .padding()
+            .background(cardBackgroundColor)
+            .cornerRadius(20)
         }
-        .padding()
-        .background(cardBackgroundColor)
-        .cornerRadius(20)
     }
 }
 
