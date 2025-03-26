@@ -10,27 +10,25 @@ import SwiftUI
 struct AlarmListView: View {
     @Environment(LocalNotificationManager.self) var localNotificationManager
 
-    @State private var isActive = false
-    @State private var currentIndex: Int? = nil
+    @State private var alarmListVM = AlarmListViewModel()
 
 
     var body: some View {
         NavigationStack {
             List {
                 ForEach(localNotificationManager.alarmViewModels.indices, id: \.self) { index in
-                    AlarmRowButtonView(index: index, currentIndex: $currentIndex, isActive: $isActive)
+                    AlarmRowButtonView(index: index, currentIndex: $alarmListVM.currentIndex, isActive: $alarmListVM.isActive)
                 }
                 .onDelete(perform: delete)
             }
             .navigationTitle(LocalizedStringKey("Alarm List"))
-            .sheet(isPresented: $isActive) {
-                ChooseAddEditAlarmView(currentAlarmIndex: currentIndex)
+            .sheet(isPresented: $alarmListVM.isActive) {
+                ChooseAddEditAlarmView(currentAlarmIndex: alarmListVM.currentIndex)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("Add") {
-                        currentIndex = nil
-                        isActive = true
+                        alarmListVM.addAction()
                     }
                 }
                 ToolbarItem(placement: .topBarLeading) {
@@ -39,6 +37,7 @@ struct AlarmListView: View {
             }
         }
     }
+    
     func delete(at offsets: IndexSet) {
         for index in offsets {
             localNotificationManager.removeRequest(id: localNotificationManager.alarmViewModels[index].id )
