@@ -17,12 +17,17 @@ struct AddEditCircularAlarmView: View {
     }
     var body: some View {
         VStack {
-            CancelSaveButtonView(currentAlarmIndex: currentAlarmIndex, alarmModel: $alarmModel)
-            AlarmToggleView(isOn: $alarmModel.alarmEnabled)
+            
             Divider()
             Spacer()
             CircularTimeView(currentAlarmIndex: currentAlarmIndex, alarmModel: $alarmModel, size: screenWidth / 2)
+                .padding(.vertical)
             Spacer()
+            Divider()
+            AlarmToggleView(isOn: $alarmModel.alarmEnabled)
+                .padding()
+            RepeatsToggleView(doesRepeat: $alarmModel.repeats)
+                .padding()
             SelectActivityView(currentColorIndex: $alarmModel.colorIndex, currentActivity: $alarmModel.activitySFSymbol)
                 .padding()
         }
