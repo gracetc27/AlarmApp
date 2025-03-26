@@ -13,8 +13,6 @@ struct AddEditAlarmView: View {
     init(alarmModel: Binding<Alarm>) {
         self._alarmModel = alarmModel
     }
-
-
     var body: some View {
         ScrollView {
             VStack {
