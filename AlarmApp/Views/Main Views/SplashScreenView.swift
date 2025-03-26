@@ -8,13 +8,10 @@
 import SwiftUI
 
 struct SplashScreenView: View {
-    @State private var isActive = false
-    @State private var opacity = 0.7
-    @State private var fontSize = 12.0
-    let font = "WorkSans-VariableFont_wght"
+    @State private var splashScreenVM = SplashScreenViewModel()
 
     var body: some View {
-        if isActive {
+        if splashScreenVM.isActive {
             MainAlarmView()
         } else {
             ZStack {
@@ -24,13 +21,13 @@ struct SplashScreenView: View {
                         Text(LocalizedStringKey("hello there!"))
                         Text(LocalizedStringKey("let's add an alarm"))
                     }
-                    .font(.custom(font, size: fontSize))
+                    .font(.custom(fontVariable, size: splashScreenVM.fontSize))
                     .multilineTextAlignment(.center)
                     .padding()
                     .onAppear {
                         withAnimation(.easeIn(duration: 1.5)) {
-                            opacity = 1.0
-                            fontSize = 36.0
+                            splashScreenVM.opacity = 1.0
+                            splashScreenVM.fontSize = 36.0
                         }
                     }
                     Spacer()
@@ -42,7 +39,7 @@ struct SplashScreenView: View {
 
                     Button("Lets get started...", systemImage: "alarm.fill") {
                         withAnimation {
-                            isActive = true
+                            splashScreenVM.isActive = true
                         }
                     }
                     .padding()
