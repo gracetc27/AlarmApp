@@ -11,19 +11,13 @@ import SwiftUI
 struct ChooseAddEditAlarmView: View {
     @Environment(LocalNotificationManager.self) private var localNotificationManager
     @Environment(\.dismiss) private var dismiss
-    @State private var alarmModel: Alarm = .DefaultAlarm()
-    @State private var alarmViewType: AlarmViewType = .standard
-    private let currentAlarmIndex: Int?
-
-    init(currentAlarmIndex: Int?) {
-        self.currentAlarmIndex = currentAlarmIndex
-    }
+    @State private var chooseAddEditAlarmVM = ChooseAddEditAlarmViewModel()
 
     var body: some View {
         
         NavigationStack {
             VStack {
-                Picker("Alarm Type", selection: $alarmViewType) {
+                Picker("Alarm Type", selection: $chooseAddEditAlarmVM.alarmViewType) {
                     ForEach(AlarmViewType.allCases, id: \.self) { type in
                         Text(type.rawValue)
                     }
@@ -31,33 +25,33 @@ struct ChooseAddEditAlarmView: View {
                 .pickerStyle(.segmented)
                 .padding()
 
-                if alarmViewType == .standard {
-                    AddEditAlarmView(alarmModel: $alarmModel)
+                if chooseAddEditAlarmVM.alarmViewType == .standard {
+                    AddEditAlarmView(alarmModel: $chooseAddEditAlarmVM.alarmModel)
                 } else {
-                    AddEditCircularAlarmView(alarmModel: $alarmModel)
+                    AddEditCircularAlarmView(alarmModel: $chooseAddEditAlarmVM.alarmModel)
                 }
             }
             .onAppear {
-                if let currentAlarmIndex {
-                    alarmModel = localNotificationManager.alarmViewModels[currentAlarmIndex]
+                if let currentAlarmIndex = chooseAddEditAlarmVM.currentAlarmIndex {
+                    chooseAddEditAlarmVM.alarmModel = localNotificationManager.alarmViewModels[currentAlarmIndex]
                 }
             }
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button(currentAlarmIndex == nil ? "Add" : "Save") {
-                        if let currentAlarmIndex = currentAlarmIndex {
-                            localNotificationManager.alarmViewModels[currentAlarmIndex] = alarmModel
+                    Button(chooseAddEditAlarmVM.currentAlarmIndex == nil ? "Add" : "Save") {
+                        if let currentAlarmIndex = chooseAddEditAlarmVM.currentAlarmIndex {
+                            localNotificationManager.alarmViewModels[currentAlarmIndex] = chooseAddEditAlarmVM.alarmModel
                         } else {
-                            localNotificationManager.safeAppend(localNotification: alarmModel)
+                            localNotificationManager.safeAppend(localNotification: chooseAddEditAlarmVM.alarmModel)
                         }
                         stopSound()
 
                         dismiss()
                         Task {
-                            if alarmModel.alarmEnabled {
-                                await localNotificationManager.schedule(localNotification: alarmModel)
+                            if chooseAddEditAlarmVM.alarmModel.alarmEnabled {
+                                await localNotificationManager.schedule(localNotification: chooseAddEditAlarmVM.alarmModel)
                             } else {
-                                localNotificationManager.removeRequest(id: alarmModel.id)
+                                localNotificationManager.removeRequest(id: chooseAddEditAlarmVM.alarmModel.id)
                             }
                         }
                     }
@@ -75,6 +69,6 @@ struct ChooseAddEditAlarmView: View {
 }
 
 #Preview {
-    ChooseAddEditAlarmView(currentAlarmIndex: nil)
+    ChooseAddEditAlarmView()
         .environment(LocalNotificationManager())
 }
