@@ -1,5 +1,5 @@
 //
-//  ChooseAlarmView.swift
+//  ChooseAddEditAlarmView.swift
 //  AlarmApp
 //
 //  Created by Grace couch on 24/03/2025.
@@ -12,14 +12,15 @@ enum AlarmViewType: String, CaseIterable {
     case circular = "Circular"
 }
 
-struct ChooseAlarmView: View {
+struct ChooseAddEditAlarmView: View {
     @Environment(LocalNotificationManager.self) var localNotificationManager
     @Environment(\.dismiss) var dismiss
     @State private var alarmModel: Alarm = .DefaultAlarm()
     @State private var alarmViewType: AlarmViewType = .standard
-    @Binding var currentAlarmIndex: Int?
+    let currentAlarmIndex: Int?
 
     var body: some View {
+
         NavigationStack {
             VStack {
                 Picker("Alarm Type", selection: $alarmViewType) {
@@ -31,15 +32,15 @@ struct ChooseAlarmView: View {
                 .padding()
                 if let currentAlarmIndex = currentAlarmIndex {
                     if alarmViewType == .standard {
-                        ToBedWakeUpView(currentAlarmIndex: currentAlarmIndex, alarmModel: localNotificationManager.alarmViewModels[currentAlarmIndex])
+                        AddEditAlarmView(currentAlarmIndex: currentAlarmIndex, alarmModel: localNotificationManager.alarmViewModels[currentAlarmIndex])
                     } else {
-                        AddEditCircularAlarmView(alarmModel: localNotificationManager.alarmViewModels[currentAlarmIndex], currentAlarmIndex: currentAlarmIndex)
+                        AddEditCircularAlarmView(currentAlarmIndex: currentAlarmIndex, alarmModel: localNotificationManager.alarmViewModels[currentAlarmIndex])
                     }
                 } else {
                     if alarmViewType == .standard {
-                        ToBedWakeUpView(currentAlarmIndex: nil, alarmModel: .DefaultAlarm())
+                        AddEditAlarmView(currentAlarmIndex: nil, alarmModel: alarmModel)
                     } else {
-                        AddEditCircularAlarmView(alarmModel: .DefaultAlarm(), currentAlarmIndex: nil)
+                        AddEditCircularAlarmView(currentAlarmIndex: nil, alarmModel: alarmModel)
                     }
                 }
             }
@@ -76,6 +77,6 @@ struct ChooseAlarmView: View {
 }
 
 #Preview {
-    ChooseAlarmView(currentAlarmIndex: .constant(nil))
+    ChooseAddEditAlarmView(currentAlarmIndex: nil)
         .environment(LocalNotificationManager())
 }

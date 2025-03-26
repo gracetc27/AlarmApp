@@ -1,5 +1,5 @@
 //
-//  ToBedWakeUpView.swift
+//  AddEditAlarmView.swift
 //  AlarmApp
 //
 //  Created by Grace couch on 06/03/2025.
@@ -7,21 +7,21 @@
 
 import SwiftUI
 
-struct ToBedWakeUpView: View {
+struct AddEditAlarmView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(LocalNotificationManager.self) var localNotificationManager
     let currentAlarmIndex: Int?
     @State private var alarmModel: Alarm
-
+    
     init(currentAlarmIndex: Int?, alarmModel: Alarm) {
         self.currentAlarmIndex = currentAlarmIndex
         self._alarmModel = State(initialValue: alarmModel)
     }
 
+
     var body: some View {
         ScrollView {
             VStack {
-                Divider()
                 EditTitleBodyView(title: $alarmModel.title, description: $alarmModel.description)
                 Divider()
                 AlarmToggleView(isOn: $alarmModel.alarmEnabled)
@@ -85,6 +85,6 @@ struct ToBedWakeUpView: View {
 }
 
 #Preview {
-    ToBedWakeUpView(currentAlarmIndex: nil, alarmModel: .DefaultAlarm())
+    AddEditAlarmView(currentAlarmIndex: nil, alarmModel: .DefaultAlarm())
         .environment(LocalNotificationManager())
 }
