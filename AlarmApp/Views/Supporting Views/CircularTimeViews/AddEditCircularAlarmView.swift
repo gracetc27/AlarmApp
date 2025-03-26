@@ -8,33 +8,39 @@
 import SwiftUI
 
 struct AddEditCircularAlarmView: View {
-    let currentAlarmIndex: Int?
-    @State private var alarmModel: Alarm
+    @Binding private var alarmModel: Alarm
 
-    init(alarmModel: Alarm, currentAlarmIndex: Int? = nil) {
-        self.currentAlarmIndex = currentAlarmIndex
-        self._alarmModel = State(initialValue: alarmModel)
+    init(alarmModel: Binding<Alarm>) {
+        self._alarmModel = alarmModel
     }
+
     var body: some View {
-        VStack {
-            
-            Divider()
-            Spacer()
-            CircularTimeView(currentAlarmIndex: currentAlarmIndex, alarmModel: $alarmModel, size: screenWidth / 2)
-                .padding(.vertical)
-            Spacer()
-            Divider()
-            AlarmToggleView(isOn: $alarmModel.alarmEnabled)
+        ScrollView {
+            VStack {
+                EditTitleBodyView(title: $alarmModel.title, description: $alarmModel.description)
+                Divider()
+                Spacer()
+                CircularTimeView(alarmModel: $alarmModel, size: screenWidth / 2)
+                    .padding(.vertical)
+                HStack {
+                    GrayTextView(text: "Sound")
+                    Spacer()
+                    SoundPicker(alarmSound: $alarmModel.sounds)
+                }
                 .padding()
-            RepeatsToggleView(doesRepeat: $alarmModel.repeats)
-                .padding()
-            SelectActivityView(currentColorIndex: $alarmModel.colorIndex, currentActivity: $alarmModel.activitySFSymbol)
-                .padding()
+                Spacer()
+                Divider()
+                AlarmToggleView(isOn: $alarmModel.alarmEnabled)
+                    .padding()
+                RepeatsToggleView(doesRepeat: $alarmModel.repeats)
+                    .padding()
+                SelectActivityView(currentColorIndex: $alarmModel.colorIndex, currentActivity: $alarmModel.activitySFSymbol)
+                    .padding()
+            }
         }
     }
 }
 
 #Preview {
-    AddEditCircularAlarmView(alarmModel: .DefaultAlarm())
-        .environment(LocalNotificationManager())
+    AddEditCircularAlarmView(alarmModel: .constant(.DefaultAlarm()))
 }

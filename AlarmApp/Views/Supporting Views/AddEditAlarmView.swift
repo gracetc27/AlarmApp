@@ -8,14 +8,10 @@
 import SwiftUI
 
 struct AddEditAlarmView: View {
-    @Environment(\.dismiss) var dismiss
-    @Environment(LocalNotificationManager.self) var localNotificationManager
-    let currentAlarmIndex: Int?
-    @State private var alarmModel: Alarm
-    
-    init(currentAlarmIndex: Int?, alarmModel: Alarm) {
-        self.currentAlarmIndex = currentAlarmIndex
-        self._alarmModel = State(initialValue: alarmModel)
+    @Binding private var alarmModel: Alarm
+
+    init(alarmModel: Binding<Alarm>) {
+        self._alarmModel = alarmModel
     }
 
 
@@ -85,6 +81,6 @@ struct AddEditAlarmView: View {
 }
 
 #Preview {
-    AddEditAlarmView(currentAlarmIndex: nil, alarmModel: .DefaultAlarm())
+    AddEditAlarmView(alarmModel: .constant(.DefaultAlarm()))
         .environment(LocalNotificationManager())
 }

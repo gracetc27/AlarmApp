@@ -13,14 +13,18 @@ enum AlarmViewType: String, CaseIterable {
 }
 
 struct ChooseAddEditAlarmView: View {
-    @Environment(LocalNotificationManager.self) var localNotificationManager
-    @Environment(\.dismiss) var dismiss
+    @Environment(LocalNotificationManager.self) private var localNotificationManager
+    @Environment(\.dismiss) private var dismiss
     @State private var alarmModel: Alarm = .DefaultAlarm()
     @State private var alarmViewType: AlarmViewType = .standard
-    let currentAlarmIndex: Int?
+    private let currentAlarmIndex: Int?
+
+    init(currentAlarmIndex: Int?) {
+        self.currentAlarmIndex = currentAlarmIndex
+    }
 
     var body: some View {
-
+        
         NavigationStack {
             VStack {
                 Picker("Alarm Type", selection: $alarmViewType) {
@@ -30,48 +34,46 @@ struct ChooseAddEditAlarmView: View {
                 }
                 .pickerStyle(.segmented)
                 .padding()
-                if let currentAlarmIndex = currentAlarmIndex {
-                    if alarmViewType == .standard {
-                        AddEditAlarmView(currentAlarmIndex: currentAlarmIndex, alarmModel: localNotificationManager.alarmViewModels[currentAlarmIndex])
-                    } else {
-                        AddEditCircularAlarmView(currentAlarmIndex: currentAlarmIndex, alarmModel: localNotificationManager.alarmViewModels[currentAlarmIndex])
-                    }
+
+                if alarmViewType == .standard {
+                    AddEditAlarmView(alarmModel: $alarmModel)
                 } else {
-                    if alarmViewType == .standard {
-                        AddEditAlarmView(currentAlarmIndex: nil, alarmModel: alarmModel)
-                    } else {
-                        AddEditCircularAlarmView(currentAlarmIndex: nil, alarmModel: alarmModel)
-                    }
+                    AddEditCircularAlarmView(alarmModel: $alarmModel)
                 }
             }
-                .toolbar {
-                    ToolbarItem(placement: .confirmationAction) {
-                        Button(currentAlarmIndex == nil ? "Add" : "Save") {
-                            if let currentAlarmIndex = currentAlarmIndex {
-                                localNotificationManager.alarmViewModels[currentAlarmIndex] = alarmModel
-                            } else {
-                                localNotificationManager.safeAppend(localNotification: alarmModel)
-                            }
-                            stopSound()
+            .onAppear {
+                if let currentAlarmIndex {
+                    alarmModel = localNotificationManager.alarmViewModels[currentAlarmIndex]
+                }
+            }
+            .toolbar {
+                ToolbarItem(placement: .confirmationAction) {
+                    Button(currentAlarmIndex == nil ? "Add" : "Save") {
+                        if let currentAlarmIndex = currentAlarmIndex {
+                            localNotificationManager.alarmViewModels[currentAlarmIndex] = alarmModel
+                        } else {
+                            localNotificationManager.safeAppend(localNotification: alarmModel)
+                        }
+                        stopSound()
 
-                            dismiss()
-                            Task {
-                                if alarmModel.alarmEnabled {
-                                    await localNotificationManager.schedule(localNotification: alarmModel)
-                                } else {
-                                    localNotificationManager.removeRequest(id: alarmModel.id)
-                                }
+                        dismiss()
+                        Task {
+                            if alarmModel.alarmEnabled {
+                                await localNotificationManager.schedule(localNotification: alarmModel)
+                            } else {
+                                localNotificationManager.removeRequest(id: alarmModel.id)
                             }
                         }
-                    }
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button("Cancel", role: .destructive) {
-                            stopSound()
-                            dismiss()
-                        }
-                        .tint(.red)
                     }
                 }
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel", role: .destructive) {
+                        stopSound()
+                        dismiss()
+                    }
+                    .tint(.red)
+                }
+            }
         }
     }
 }

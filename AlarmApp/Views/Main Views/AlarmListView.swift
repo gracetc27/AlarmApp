@@ -24,12 +24,13 @@ struct AlarmListView: View {
             }
             .navigationTitle(LocalizedStringKey("Alarm List"))
             .sheet(isPresented: $isActive) {
-                ChooseAlarmView(currentAlarmIndex: $currentIndex)
+                ChooseAddEditAlarmView(currentAlarmIndex: currentIndex)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
-                    NavigationLink("Add") {
-                        ChooseAlarmView(currentAlarmIndex: $currentIndex)
+                    Button("Add") {
+                        currentIndex = nil
+                        isActive = true
                     }
                 }
                 ToolbarItem(placement: .topBarLeading) {

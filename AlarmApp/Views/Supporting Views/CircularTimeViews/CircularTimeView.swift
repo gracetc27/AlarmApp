@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CircularTimeView: View {
-    let currentAlarmIndex: Int?
     @Binding var alarmModel: Alarm
 
     let size: CGFloat
@@ -47,5 +46,5 @@ struct CircularTimeView: View {
 }
 
 #Preview {
-    CircularTimeView(currentAlarmIndex: nil, alarmModel: .constant(.DefaultAlarm()), size: screenWidth / 2)
+    CircularTimeView(alarmModel: .constant(.DefaultAlarm()), size: screenWidth / 2)
 }
