@@ -30,3 +30,5 @@
 "Cancel" = "Avbryt";
 "Save" = "Lagre";
 "enable" = "muliggjøre";
+"name" = "navn";
+"description" = "beskrivelse";

@@ -30,3 +30,5 @@
 "Cancel" = "Cancel";
 "Save" = "Save";
 "enable" = "enable";
+"name" = "name";
+"description" = "description";

@@ -31,3 +31,5 @@
 "Cancel" = "Annuler";
 "Save" = "Enregistrer";
 "enable" = "activer";
+"name" = "nom";
+"description" = "description";

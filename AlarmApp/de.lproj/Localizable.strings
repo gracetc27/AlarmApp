@@ -22,8 +22,7 @@
 "let's add an alarm" = "Fügen wir einen Wecker hinzu";
 "start" = "Anfang";
 "end" = "Ende";
-"Have a great day!" = "Ich wünsche ihnen einen wunderbaren Tag!
-";
+"Have a great day!" = "Ich wünsche ihnen einen wunderbaren Tag!";
 "Activity completed." = "Aktivität abgeschlossen.";
 "Enable notifications, please" = "Benachrichtigungen aktivieren, bitte";
 "Set the alarm" = "Stell den Alarm ein";
@@ -31,3 +30,5 @@
 "Cancel" = "Absagen";
 "Save" = "Speichern";
 "enable" = "ermöglichen";
+"name" = "Name";
+"description" = "Beschreibung";
