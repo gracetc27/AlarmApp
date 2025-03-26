@@ -7,10 +7,6 @@
 
 import SwiftUI
 
-enum AlarmViewType: String, CaseIterable {
-    case standard = "Standard"
-    case circular = "Circular"
-}
 
 struct ChooseAddEditAlarmView: View {
     @Environment(LocalNotificationManager.self) private var localNotificationManager
