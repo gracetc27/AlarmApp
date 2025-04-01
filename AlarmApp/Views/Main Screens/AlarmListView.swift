@@ -26,10 +26,7 @@ struct AlarmListView: View {
             }
             .navigationTitle(LocalizedStringKey("Alarm List"))
             .sheet(isPresented: $alarmListVM.isActive) {
-                let index = alarmListVM.currentAlarm.flatMap {
-                    localNotificationManager.alarmViewModels.firstIndex(of: $0)
-                }
-                ChooseAddEditAlarmView(currentAlarmIndex: index)
+                ChooseAddEditAlarmView(alarmModel: alarmListVM.currentAlarm)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {

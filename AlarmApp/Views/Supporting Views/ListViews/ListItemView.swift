@@ -17,7 +17,7 @@ struct ListItemView: View {
                 .font(.title)
 
             Text("\(alarmModel.title) \(getTimeFromDate(date: alarmModel.endDate))")
-                .font(.title2)
+                .font(.title3)
                 .fontWeight(alarmModel.alarmEnabled ? .bold : .thin)
                 .opacity(alarmModel.alarmEnabled ? 1 : 0.7)
                 .fixedSize(horizontal: true, vertical: false)

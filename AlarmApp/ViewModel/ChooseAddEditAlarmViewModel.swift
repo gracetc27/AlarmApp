@@ -9,13 +9,18 @@ import SwiftUI
 
 @Observable
 class ChooseAddEditAlarmViewModel {
-    var alarmModel: Alarm = .DefaultAlarm()
+    var alarmModel: Alarm
     var alarmViewType: AlarmViewType = .standard
-    let currentAlarmIndex: Int?
+    let isNewAlarm: Bool
 
-    init(currentAlarmIndex: Int?) {
-        self.currentAlarmIndex = currentAlarmIndex
+    init(alarmModel : Alarm?) {
+        if let alarmModel {
+            self.alarmModel = alarmModel
+            self.isNewAlarm = false
+        } else {
+            self.alarmModel = .DefaultAlarm()
+            self.isNewAlarm = true
+        }
     }
-
 }
 

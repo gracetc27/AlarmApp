@@ -13,8 +13,8 @@ struct ChooseAddEditAlarmView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var chooseAddEditAlarmVM: ChooseAddEditAlarmViewModel
 
-    init(currentAlarmIndex: Int?) {
-        let viewModel = ChooseAddEditAlarmViewModel(currentAlarmIndex: currentAlarmIndex)
+    init(alarmModel: Alarm?) {
+        let viewModel = ChooseAddEditAlarmViewModel(alarmModel: alarmModel)
         self._chooseAddEditAlarmVM = State(initialValue: viewModel)
     }
 
@@ -36,25 +36,22 @@ struct ChooseAddEditAlarmView: View {
                     AddEditCircularAlarmView(alarmModel: $chooseAddEditAlarmVM.alarmModel)
                 }
             }
-            .onAppear {
-                if let currentAlarmIndex = chooseAddEditAlarmVM.currentAlarmIndex {
-                    chooseAddEditAlarmVM.alarmModel = localNotificationManager.alarmViewModels[currentAlarmIndex]
-                }
-            }
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
-                    Button(chooseAddEditAlarmVM.currentAlarmIndex == nil ? "Add" : "Save") {
-                        localNotificationManager.safeAppend(alarm: chooseAddEditAlarmVM.alarmModel)
+                    Button(chooseAddEditAlarmVM.isNewAlarm ? "Add" : "Save") {
+                        let alarmModel = chooseAddEditAlarmVM.alarmModel
+                        localNotificationManager.safeAppend(alarm: alarmModel)
                         stopSound()
 
                         dismiss()
                         Task {
-                            if chooseAddEditAlarmVM.alarmModel.alarmEnabled {
-                                await localNotificationManager.schedule(localNotification: chooseAddEditAlarmVM.alarmModel)
+                            if alarmModel.alarmEnabled {
+                                await localNotificationManager.schedule(localNotification: alarmModel)
                             } else {
-                                localNotificationManager.removeRequest(id: chooseAddEditAlarmVM.alarmModel.id)
+                                localNotificationManager.removeRequest(id: alarmModel.id)
                             }
                         }
+
                     }
                 }
                 ToolbarItem(placement: .cancellationAction) {
@@ -70,6 +67,6 @@ struct ChooseAddEditAlarmView: View {
 }
 
 #Preview {
-    ChooseAddEditAlarmView(currentAlarmIndex: nil)
+    ChooseAddEditAlarmView(alarmModel: nil)
         .environment(LocalNotificationManager())
 }
