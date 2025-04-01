@@ -11,6 +11,11 @@ import SwiftUI
 class ChooseAddEditAlarmViewModel {
     var alarmModel: Alarm = .DefaultAlarm()
     var alarmViewType: AlarmViewType = .standard
-    let currentAlarmIndex: Int? = nil
+    let currentAlarmIndex: Int?
+
+    init(currentAlarmIndex: Int?) {
+        self.currentAlarmIndex = currentAlarmIndex
+    }
+
 }
 

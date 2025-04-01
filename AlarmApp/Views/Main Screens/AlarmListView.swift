@@ -12,18 +12,24 @@ struct AlarmListView: View {
 
     @State private var alarmListVM = AlarmListViewModel()
 
-
     var body: some View {
+        @Bindable var localNotificationManager = localNotificationManager
         NavigationStack {
             List {
-                ForEach(localNotificationManager.alarmViewModels.indices, id: \.self) { index in
-                    AlarmRowButtonView(index: index, currentIndex: $alarmListVM.currentIndex, isActive: $alarmListVM.isActive)
+                ForEach($localNotificationManager.alarmViewModels) { $alarm in
+                    AlarmRowButtonView($alarm) {
+                        alarmListVM.currentAlarm = alarm
+                        alarmListVM.isActive.toggle()
+                    }
                 }
                 .onDelete(perform: delete)
             }
             .navigationTitle(LocalizedStringKey("Alarm List"))
             .sheet(isPresented: $alarmListVM.isActive) {
-                ChooseAddEditAlarmView(currentAlarmIndex: alarmListVM.currentIndex)
+                let index = alarmListVM.currentAlarm.flatMap {
+                    localNotificationManager.alarmViewModels.firstIndex(of: $0)
+                }
+                ChooseAddEditAlarmView(currentAlarmIndex: index)
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -40,7 +46,9 @@ struct AlarmListView: View {
     
     func delete(at offsets: IndexSet) {
         for index in offsets {
-            localNotificationManager.removeRequest(id: localNotificationManager.alarmViewModels[index].id )
+            localNotificationManager.removeAlarm(
+                localNotificationManager.alarmViewModels[index]
+            )
         }
     }
 }

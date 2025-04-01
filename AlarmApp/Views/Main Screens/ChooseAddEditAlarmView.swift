@@ -44,11 +44,7 @@ struct ChooseAddEditAlarmView: View {
             .toolbar {
                 ToolbarItem(placement: .confirmationAction) {
                     Button(chooseAddEditAlarmVM.currentAlarmIndex == nil ? "Add" : "Save") {
-                        if let currentAlarmIndex = chooseAddEditAlarmVM.currentAlarmIndex {
-                            localNotificationManager.alarmViewModels[currentAlarmIndex] = chooseAddEditAlarmVM.alarmModel
-                        } else {
-                            localNotificationManager.safeAppend(localNotification: chooseAddEditAlarmVM.alarmModel)
-                        }
+                        localNotificationManager.safeAppend(alarm: chooseAddEditAlarmVM.alarmModel)
                         stopSound()
 
                         dismiss()

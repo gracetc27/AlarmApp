@@ -10,10 +10,10 @@ import SwiftUI
 @Observable
 class AlarmListViewModel {
     var isActive = false
-    var currentIndex: Int? = nil
+    var currentAlarm: Alarm? = nil
 
     func addAction() {
-        currentIndex = nil
+        currentAlarm = nil
         isActive = true
     }
 }

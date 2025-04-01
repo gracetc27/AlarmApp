@@ -79,14 +79,20 @@ class LocalNotificationManager: NSObject, UNUserNotificationCenterDelegate {
         if let index = pendingAlarms.firstIndex(where: { $0.identifier == id }) {
             pendingAlarms.remove(at: index)
         }
-
     }
 
-    func safeAppend(localNotification: Alarm) {
-        if let index = alarmViewModels.firstIndex(where: { $0.id == localNotification.id }) {
-            alarmViewModels[index] = localNotification
+    func removeAlarm(_ alarm: Alarm) {
+        alarmViewModels.removeAll { item in
+            alarm.id == item.id
+        }
+        removeRequest(id: alarm.id)
+    }
+
+    func safeAppend(alarm: Alarm) {
+        if let index = alarmViewModels.firstIndex(where: { $0.id == alarm.id }) {
+            alarmViewModels[index] = alarm
         } else {
-            alarmViewModels.append(localNotification)
+            alarmViewModels.append(alarm)
         }
         alarmViewModels = alarmViewModels.sorted(by: { $0.endTime < $1.endTime})
     }

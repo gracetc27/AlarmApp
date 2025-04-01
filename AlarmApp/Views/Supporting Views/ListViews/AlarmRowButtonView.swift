@@ -8,29 +8,31 @@
 import SwiftUI
 
 struct AlarmRowButtonView: View {
-    @Environment(LocalNotificationManager.self) var localNotificationManager
-    let index: Int
-    @Binding var currentIndex: Int?
-    @Binding var isActive: Bool
+
+    @Binding private var alarm: Alarm
+    private let action: () -> Void
+
+    init(_ alarm: Binding<Alarm>, action: @escaping () -> Void) {
+        self._alarm = alarm
+        self.action = action
+    }
+
     var body: some View {
-        @Bindable var localNotificationManager = localNotificationManager
         HStack {
             Button {
-                currentIndex = index
-                isActive.toggle()
+                action()
             } label: {
-                ListItemView(alarmModel: localNotificationManager.alarmViewModels[index], index: index)
+                ListItemView(alarmModel: alarm)
             }
             Spacer()
-            if index < localNotificationManager.alarmViewModels.count {
-                AlarmToggleView(isOn: $localNotificationManager.alarmViewModels[index].alarmEnabled)
+
+            AlarmToggleView(isOn: $alarm.alarmEnabled)
                     .labelsHidden()
-            }
         }
     }
 }
 
 #Preview {
-    AlarmRowButtonView(index: 0, currentIndex: .constant(0), isActive: .constant(false))
+    AlarmRowButtonView(.constant(.DefaultAlarm())) {}
         .environment(LocalNotificationManager())
 }

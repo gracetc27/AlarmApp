@@ -10,7 +10,6 @@ import SwiftUI
 struct ListItemView: View {
     @Environment(LocalNotificationManager.self) var localNotificationManager
     let alarmModel: Alarm
-    let index: Int
     var body: some View {
         HStack {
             Image(systemName: alarmModel.activitySFSymbol)
@@ -36,6 +35,6 @@ struct ListItemView: View {
 }
 
 #Preview {
-    ListItemView(alarmModel: .DefaultAlarm(), index: 0)
+    ListItemView(alarmModel: .DefaultAlarm())
         .environment(LocalNotificationManager())
 }
