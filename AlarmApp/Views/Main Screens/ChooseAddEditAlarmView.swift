@@ -11,7 +11,12 @@ import SwiftUI
 struct ChooseAddEditAlarmView: View {
     @Environment(LocalNotificationManager.self) private var localNotificationManager
     @Environment(\.dismiss) private var dismiss
-    @State private var chooseAddEditAlarmVM = ChooseAddEditAlarmViewModel()
+    @State private var chooseAddEditAlarmVM: ChooseAddEditAlarmViewModel
+
+    init(currentAlarmIndex: Int?) {
+        let viewModel = ChooseAddEditAlarmViewModel(currentAlarmIndex: currentAlarmIndex)
+        self._chooseAddEditAlarmVM = State(initialValue: viewModel)
+    }
 
     var body: some View {
         
@@ -69,6 +74,6 @@ struct ChooseAddEditAlarmView: View {
 }
 
 #Preview {
-    ChooseAddEditAlarmView()
+    ChooseAddEditAlarmView(currentAlarmIndex: nil)
         .environment(LocalNotificationManager())
 }
