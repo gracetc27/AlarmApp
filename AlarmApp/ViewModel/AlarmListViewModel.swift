@@ -16,5 +16,10 @@ class AlarmListViewModel {
         currentAlarm = nil
         isActive = true
     }
+
+    func editAction(alarm: Alarm) {
+        currentAlarm = alarm
+        isActive.toggle()
+    }
 }
 

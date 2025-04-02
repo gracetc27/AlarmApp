@@ -18,8 +18,7 @@ struct AlarmListView: View {
             List {
                 ForEach($localNotificationManager.alarmViewModels) { $alarm in
                     AlarmRowButtonView($alarm) {
-                        alarmListVM.currentAlarm = alarm
-                        alarmListVM.isActive.toggle()
+                        alarmListVM.editAction(alarm: alarm)
                     }
                 }
                 .onDelete(perform: delete)
