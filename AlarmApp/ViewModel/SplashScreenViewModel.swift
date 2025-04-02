@@ -10,8 +10,8 @@ import SwiftUI
 @Observable
 class SplashScreenViewModel {
     var isActive = false
-    var opacity = 0.7
-    var fontSize = 12.0
+    private(set) var opacity = 0.7
+    private(set) var fontSize = 12.0
 
     func animationAction() {
         opacity = 1.0
