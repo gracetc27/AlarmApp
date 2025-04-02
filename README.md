@@ -13,6 +13,7 @@ I have changed the logic and some design features in this app quite a lot from t
 - Use of the environment
 - Saving and loading Alarms to and from UserDefaults
 - Time and Date usage.
+- Simple Unit tests
   
 # Contact me
 - [My LinkedIn Profile](https://www.linkedin.com/in/grace-couch-b67786334/) 
