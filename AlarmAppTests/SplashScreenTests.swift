@@ -10,8 +10,18 @@ import Testing
 
 struct SplashScreenTests {
 
-    @Test func example() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+    @Test func animationActionTest() async throws {
+        let viewModel = SplashScreenViewModel()
+        viewModel.opacity = 0.7
+        viewModel.fontSize = 24.0
+
+        let expectedOpacity = 1.0
+        let expectedFontSize = 36.0
+
+        viewModel.animationAction()
+
+        #expect(viewModel.opacity == expectedOpacity)
+        #expect(viewModel.fontSize == expectedFontSize)
     }
 
 }
