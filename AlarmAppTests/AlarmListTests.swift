@@ -6,11 +6,39 @@
 //
 
 import Testing
+@testable import AlarmApp
 
 struct AlarmListTests {
 
-    @Test func <#test function name#>() async throws {
-        // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+    @Test func addActionTest() async throws {
+        let viewModel = AlarmListViewModel()
+        #expect(viewModel.isActive == false)
+        #expect(viewModel.currentAlarm == nil)
+
+
+        let expectedIsActive = true
+        let expectedCurrentAlarm: Alarm? = nil
+
+        viewModel.addAction()
+
+        #expect(viewModel.isActive == expectedIsActive)
+        #expect(viewModel.currentAlarm == expectedCurrentAlarm)
+
+    }
+
+    @Test func editActionTest() async throws {
+        let viewModel = AlarmListViewModel()
+        #expect(viewModel.isActive == false)
+        #expect(viewModel.currentAlarm == nil)
+        let alarmToEdit = Alarm.DefaultAlarm()
+
+        let expectedIsActive = true
+        let expectedCurrentAlarm: Alarm? = alarmToEdit
+
+        viewModel.editAction(alarm: alarmToEdit)
+
+        #expect(viewModel.isActive == expectedIsActive)
+        #expect(viewModel.currentAlarm == expectedCurrentAlarm)
     }
 
 }

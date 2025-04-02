@@ -12,8 +12,8 @@ struct SplashScreenTests {
 
     @Test func animationActionTest() async throws {
         let viewModel = SplashScreenViewModel()
-        viewModel.opacity = 0.7
-        viewModel.fontSize = 24.0
+        #expect(viewModel.opacity == 0.7)
+        #expect(viewModel.fontSize == 12.0)
 
         let expectedOpacity = 1.0
         let expectedFontSize = 36.0
